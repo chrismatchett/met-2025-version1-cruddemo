@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+  <h1>Search</h1>
+  <form th:object="${fine}" th:action="@{/amendAmount}" method="post">
+      <div>
+          <label for="reference">Reference:</label>
+          <input id="reference" th:field="*{reference}" placeholder="reference"/>
+      </div>
+      <div>
+          <button type="submit">Submit</button>
+      </div>
+  </form>
+</body>
+</html>

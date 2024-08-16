@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Fine Amount</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Deduct from Fine Balance</h1>
+<form th:object="${fineAmountDTO}" th:action="@{/updateAmount}" method="post">
+    <div>
+        <label for="reference">Reference:</label>
+        <input id="reference" th:field="*{reference}" placeholder="reference"/>
+    </div>
+    <div>
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" th:field="*{amount}" placeholder="amount"/>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+</body>
+</html>
