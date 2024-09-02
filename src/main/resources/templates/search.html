@@ -5,6 +5,7 @@
     <title>Search</title>
 </head>
 <body>
+  <div th:insert="fragments/header :: header"></div>
   <h1>Search</h1>
   <form th:object="${fine}" th:action="@{/amendAmount}" method="post">
       <div>
@@ -15,5 +16,6 @@
           <button type="submit">Submit</button>
       </div>
   </form>
+  <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

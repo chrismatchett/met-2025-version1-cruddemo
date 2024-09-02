@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+<div th:insert="fragments/header :: header"></div>
   <h1>Success</h1>
-  <p th:text="'Time on the server is ' + ${theDate}" class="funny" />
-
+  <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

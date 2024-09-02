@@ -5,6 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
+<div th:insert="fragments/header :: header"></div>
 <h1>Deduct from Fine Balance</h1>
 <form th:object="${fineAmountDTO}" th:action="@{/updateAmount}" method="post">
     <div>
@@ -19,5 +20,6 @@
         <button type="submit">Submit</button>
     </div>
 </form>
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -1,21 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<title>Thymeleaf Demo</title>
-	
 	<!-- reference CSS file -->
 	<link rel="stylesheet"
 		  th:href="@{/css/styles.css}" />
 	
 </head>
-
 <body>
-
+	<div th:insert="fragments/header :: header"></div>
 	<p th:text="'Time on the server is ' + ${theDate}" class="notice" />
-
+	<div th:insert="fragments/footer :: footer"></div>
 </body>
-
 </html>
 
 
