@@ -15,6 +15,11 @@ public class FineWebController {
     @Autowired
     private FineService fineService;
 
+    @GetMapping("/")
+    public String displayHome() {
+        return "home";
+    }
+
     @PostMapping("/amendAmount")
     public String displayFineForm(@ModelAttribute FineAmountDTO fineAmountDTO, Model model) {
         Fine theFine = fineService.findByReference(fineAmountDTO.getReference());

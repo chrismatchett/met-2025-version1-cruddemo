@@ -1,0 +1,14 @@
+<!-- 404.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Page Not Found</title>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<h1>Something went wrong!</h1>
+<p th:text="${error}"></p>
+<a href="/">Go Home</a>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
