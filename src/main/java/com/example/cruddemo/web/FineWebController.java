@@ -41,6 +41,8 @@ public class FineWebController {
         try {
             // This may cause an ArithmeticException
             Fine theFine = fineService.findByReference(fineAmountDTO.getReference());
+            model.addAttribute("fine", theFine);
+
 
             if (theFine != null) {
                 FineAmountDTO populatedDTO = new FineAmountDTO();

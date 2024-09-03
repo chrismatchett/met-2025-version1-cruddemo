@@ -6,11 +6,12 @@
 </head>
 <body>
 <div th:insert="fragments/header :: header"></div>
-<h1>Deduct from Fine Balance</h1>
+<h1>Payment form</h1>
+<p th:text="'Your reference is: '+${fine.reference}" />
 <form th:object="${fineAmountDTO}" th:action="@{/updateAmount}" method="post">
     <div>
-        <label for="reference">Reference:</label>
-        <input id="reference" th:field="*{reference}" placeholder="reference"/>
+        <!-- <label for="reference">Reference:</label> -->
+        <input type="hidden" id="reference" th:field="*{reference}" placeholder="reference"/>
     </div>
     <div>
         <label for="amount">Amount:</label>
