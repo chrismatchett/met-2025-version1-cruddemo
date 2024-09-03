@@ -2,12 +2,17 @@ package com.example.cruddemo.web;
 
 import com.example.cruddemo.entity.Fine;
 import com.example.cruddemo.service.FineService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Controller
 public class FineWebController {
@@ -20,21 +25,37 @@ public class FineWebController {
         return "home";
     }
 
+    @GetMapping("/search")
+    public String searchByReference(Model model) {
+        model.addAttribute("fine", new FineAmountDTO());
+        return "search";
+    }
+
     @PostMapping("/amendAmount")
-    public String displayFineForm(@ModelAttribute FineAmountDTO fineAmountDTO, Model model) {
-        Fine theFine = fineService.findByReference(fineAmountDTO.getReference());
+    public String displayFineForm(@Valid @ModelAttribute("fine") FineAmountDTO fineAmountDTO, BindingResult bindingResult, Model model) {
 
-        if (theFine != null) {
-            FineAmountDTO populatedDTO = new FineAmountDTO();
-            populatedDTO.setReference(theFine.getReference());
-            populatedDTO.setAmount(theFine.getAmount());
-            model.addAttribute("fineAmountDTO", populatedDTO);
-
-            return "fine-form";
-        } else {
-            // Handle case where fine is not found
+        if (bindingResult.hasErrors()) {
             return "search";
         }
+
+        try {
+            // This may cause an ArithmeticException
+            Fine theFine = fineService.findByReference(fineAmountDTO.getReference());
+
+            if (theFine != null) {
+                FineAmountDTO populatedDTO = new FineAmountDTO();
+                populatedDTO.setReference(theFine.getReference());
+                populatedDTO.setAmount(theFine.getAmount());
+                model.addAttribute("fineAmountDTO", populatedDTO);
+
+                return "fine-form";
+            }
+
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("Exception caught: " + e);
+        }
+
+        return "search";
     }
 
     @GetMapping("/confirmation")
@@ -43,11 +64,6 @@ public class FineWebController {
         return "success";
     }
 
-    @GetMapping("/search")
-    public String searchByReference(Model model) {
-        model.addAttribute("fine", new FineAmountDTO());
-        return "search";
-    }
 
     @PostMapping("/updateAmount")
     public String updateAmount(@ModelAttribute FineAmountDTO fineAmountDTO) {

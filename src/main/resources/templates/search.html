@@ -11,6 +11,11 @@
       <div>
           <label for="reference">Reference:</label>
           <input id="reference" th:field="*{reference}" placeholder="reference"/>
+          <!-- display any errors -->
+          <span
+                  th:if="${#fields.hasErrors('reference')}"
+                  th:errors="*{reference}" class="error">
+          </span>
       </div>
       <div>
           <button type="submit">Submit</button>

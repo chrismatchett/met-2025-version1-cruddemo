@@ -1,7 +1,11 @@
 package com.example.cruddemo.web;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class FineAmountDTO {
 
+    @NotBlank(message = "is required")
     private String reference;
     private double amount;
 
