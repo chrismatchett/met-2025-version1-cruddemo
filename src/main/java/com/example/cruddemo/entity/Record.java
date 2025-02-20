@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name="fine")
-public class Fine {
+@Table(name="record")
+public class Record {
 
     // Define fields
     @Id
@@ -22,7 +22,7 @@ public class Fine {
     @Column(name="email")
     private String email;
 
-    @Pattern(regexp = "^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$", message = "not a valid UK post code")
+    @Pattern(regexp = "^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$", message = "Not a valid UK post code")
     @Column(name="post_code")
     private String postCode;
 
@@ -33,11 +33,10 @@ public class Fine {
     private double amount;
     
     // Define constructors
-    Fine() {
-
+    public Record() {
     }
 
-    public Fine(String firstName, String lastName, String email, String postCode, String reference, double amount) {
+    public Record(String firstName, String lastName, String email, String postCode, String reference, double amount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -78,9 +77,13 @@ public class Fine {
         this.email = email;
     }
 
-    public String getPostCode() { return postCode; }
+    public String getPostCode() {
+        return postCode;
+    }
 
-    public void setPostCode(String postCode) { this.postCode = postCode; }
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
 
     public String getReference() {
         return reference;
@@ -90,20 +93,24 @@ public class Fine {
         this.reference = reference;
     }
     
-    public double getAmount() { return amount; }
+    public double getAmount() {
+        return amount;
+    }
 
-    public void setAmount(double amount) { this.amount = amount; }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
     
     @Override
     public String toString() {
-        return "Employee{" +
-                "EmployeeId=" + id +
-                ", FirstName='" + firstName + '\'' +
-                ", LastName='" + lastName + '\'' +
-                ", Email='" + email + '\'' +
-                ", PostCode='" + postCode + '\'' +
-                ", Reference='" + reference + '\'' +
-                ", Amount='" + amount + '\'' +
+        return "Record{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", reference='" + reference + '\'' +
+                ", amount=" + amount +
                 '}';
     }
 }

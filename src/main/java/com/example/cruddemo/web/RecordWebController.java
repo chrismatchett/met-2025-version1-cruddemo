@@ -1,7 +1,7 @@
 package com.example.cruddemo.web;
 
-import com.example.cruddemo.entity.Fine;
-import com.example.cruddemo.service.FineService;
+import com.example.cruddemo.entity.Record;
+import com.example.cruddemo.service.RecordService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Optional;
 
 @Controller
-public class FineWebController {
+public class RecordWebController {
 
     @Autowired
-    private FineService fineService;
+    private RecordService recordService;
 
     @GetMapping("/")
     public String displayHome() {
@@ -27,12 +27,12 @@ public class FineWebController {
 
     @GetMapping("/search")
     public String searchByReference(Model model) {
-        model.addAttribute("fine", new FineAmountDTO());
+        model.addAttribute("record", new RecordAmountDTO());
         return "search";
     }
 
     @PostMapping("/amendAmount")
-    public String displayFineForm(@Valid @ModelAttribute("fine") FineAmountDTO fineAmountDTO, BindingResult bindingResult, Model model) {
+    public String displayFineForm(@Valid @ModelAttribute("record") RecordAmountDTO recordAmountDTO, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "search";
@@ -40,17 +40,17 @@ public class FineWebController {
 
         try {
             // This may cause an ArithmeticException
-            Fine theFine = fineService.findByReference(fineAmountDTO.getReference());
-            model.addAttribute("fine", theFine);
+            Record theRecord = recordService.findByReference(recordAmountDTO.getReference());
+            model.addAttribute("record", theRecord);
 
 
-            if (theFine != null) {
-                FineAmountDTO populatedDTO = new FineAmountDTO();
-                populatedDTO.setReference(theFine.getReference());
-                populatedDTO.setAmount(theFine.getAmount());
-                model.addAttribute("fineAmountDTO", populatedDTO);
+            if (theRecord != null) {
+                RecordAmountDTO populatedDTO = new RecordAmountDTO();
+                populatedDTO.setReference(theRecord.getReference());
+                populatedDTO.setAmount(theRecord.getAmount());
+                model.addAttribute("RecordAmountDTO", populatedDTO);
 
-                return "fine-form";
+                return "record-form";
             }
 
         } catch (EmptyResultDataAccessException e) {
@@ -68,10 +68,10 @@ public class FineWebController {
 
 
     @PostMapping("/updateAmount")
-    public String updateAmount(@ModelAttribute FineAmountDTO fineAmountDTO) {
+    public String updateAmount(@ModelAttribute RecordAmountDTO recordAmountDTO) {
 
-        String theReference = fineAmountDTO.getReference();
-        double theAmount = fineAmountDTO.getAmount();
+        String theReference = recordAmountDTO.getReference();
+        double theAmount = recordAmountDTO.getAmount();
 
 
         // Check if amount and reference is set to something acceptable
@@ -81,13 +81,13 @@ public class FineWebController {
         }
         else {
             // Update the specific column of the entity
-            Fine theFine = fineService.findByReference(theReference);
-            double balance = theFine.getAmount();
-            balance = balance - fineAmountDTO.getAmount();
-            theFine.setAmount(balance);
+            Record theRecord = recordService.findByReference(theReference);
+            double balance = theRecord.getAmount();
+            balance = balance - recordAmountDTO.getAmount();
+            theRecord.setAmount(balance);
 
             // Save the updated entity
-            fineService.save(theFine);
+            recordService.save(theRecord);
 
             // Redirect to a success page or handle accordingly
             return "redirect:/confirmation";

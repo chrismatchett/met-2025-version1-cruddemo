@@ -1,16 +1,15 @@
 package com.example.cruddemo.web;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
-public class FineAmountDTO {
+public class RecordAmountDTO {
 
     @NotBlank(message = "is required")
     private String reference;
     private double amount;
 
     // Default constructor is needed for JSON parsing
-    public FineAmountDTO() {
+    public RecordAmountDTO() {
     }
 
     // Getter and setter methods
@@ -30,4 +29,3 @@ public class FineAmountDTO {
         this.reference = reference;
     }
 }
-
