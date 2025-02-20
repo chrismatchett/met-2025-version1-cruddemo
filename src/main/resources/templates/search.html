@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
   <div th:insert="fragments/header :: header"></div>
-  <h1>Search</h1>
-  <form th:object="${fine}" th:action="@{/amendAmount}" method="post">
+  <h2>Search</h2>
+  <form th:object="${record}" th:action="@{/amendAmount}" method="post">
       <div>
-          <label for="reference">Reference:</label>
-          <input id="reference" th:field="*{reference}" placeholder="reference"/>
+          <label for="reference">Library Reference ID:</label>
+          <input id="reference" th:field="*{reference}" placeholder="YYZ"/>
           <!-- display any errors -->
           <span
                   th:if="${#fields.hasErrors('reference')}"

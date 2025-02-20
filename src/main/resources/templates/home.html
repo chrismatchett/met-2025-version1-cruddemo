@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <div th:insert="fragments/header :: header"></div>
-  <h1>Welcome</h1>
-  <a href="/search">Start</a>
+  <h2>Welcome to our Library</h2>
+  <a href="/search">Pay outstanding fees</a>
   <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
